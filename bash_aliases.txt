@@ -1,0 +1,28 @@
+# Aliases for the ~/.bashrc file
+
+# Rebuild the ROS 2 workspace and reload the shell
+alias build='cd ~/ros2_ws/ && colcon build && source ~/.bashrc'
+
+# Kill all running ROS 2 / Gazebo / RViz / MoveIt processes
+alias cleanup='echo "Cleaning up..." && \
+sleep 5.0 && \
+pkill -9 -f "ros2|gazebo|gz|nav2|amcl|bt_navigator|nav_to_pose|rviz2|assisted_teleop|cmd_vel_relay|robot_state_publisher|joint_state_publisher|move_to_free|mqtt|autodock|cliff_detection|moveit|move_group|basic_navigator"'
+
+# Quick sanity-check commands
+alias ros2top='ros2 topic list'
+alias ros2nodes='ros2 node list'
+alias ros2services='ros2 service list'
+alias ros2params='ros2 param list'
+
+# Demo nodes (from demo_nodes_cpp / demo_nodes_py)
+alias talker='ros2 run demo_nodes_cpp talker'
+alias listener='ros2 run demo_nodes_py listener'
+
+# Launch RViz 2 on its own
+alias rviz='rviz2'
+
+# Show this container's ROS environment
+alias rosenv='env | grep -E "ROS|AMENT|COLCON|XDG" | sort'
+
+# Reload the shell config
+alias reload='source ~/.bashrc'
