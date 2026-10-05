@@ -22,7 +22,8 @@ SHELL ["/bin/bash", "-c"]
 RUN apt-get update -q && \
     apt-get upgrade -yq && \
     apt-get install -yq --no-install-recommends apt-utils wget curl git build-essential \
-    vim sudo lsb-release locales bash-completion tzdata gosu gedit htop nano libserial-dev
+    vim sudo lsb-release locales bash-completion tzdata gosu gedit htop nano libserial-dev \
+    openssh-client
 
 # Install additional tools required for ROS 2 development
 # These packages help with building and managing ROS 2 workspaces
