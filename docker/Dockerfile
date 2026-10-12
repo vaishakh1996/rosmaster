@@ -11,7 +11,7 @@ ENV LIBGL_ALWAYS_SOFTWARE=1
 
 SHELL ["/bin/bash", "-c"]
 
-# Install development tools and ROS packages as root
+# Install development tools, ROS packages, and Gazebo Fortress as root
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     bash-completion \
@@ -19,6 +19,7 @@ RUN apt-get update && \
     curl \
     git \
     libpcap-dev \
+    mesa-utils \
     nano \
     python3-colcon-common-extensions \
     python3-rosdep \
@@ -28,6 +29,7 @@ RUN apt-get update && \
     ros-humble-joint-state-publisher-gui \
     ros-humble-rviz2 \
     ros-humble-xacro \
+    ros-humble-ros-gz \
     && rm -rf /var/lib/apt/lists/*
 
 # Create non-root development user
