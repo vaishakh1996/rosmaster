@@ -1,29 +1,41 @@
+
 #!/bin/bash
-set -e
+set -euo pipefail
 
-# Set ROS 2 distribution as a variable
-ROS_DISTRO="humble"
+# ROS 2 Humble CPU-only workspace setup
+ROS_DISTRO=humble
+ROS_WS=/home/rosmaster/ros2_ws
 
-# Source ROS 2 setup
-source /opt/ros/$ROS_DISTRO/setup.bash
+echo "Setting up ROS 2 ${ROS_DISTRO} workspace..."
 
-# Install system dependencies
-apt-get update && apt-get install -y \
-    gnupg \
-    curl \
-    libpcap-dev
+# Load ROS 2 Humble environment
+# ROS setup scripts may reference unset environment variables.
+set +u
+source "/opt/ros/${ROS_DISTRO}/setup.bash"
+set -u
 
-# Navigate to the workspace
-cd /home/rosmaster/ros2_ws
+# Ensure workspace exists
+mkdir -p "${ROS_WS}/src"
+cd "${ROS_WS}"
 
-# Install ROS 2 dependencies for all packages
-echo "Installing ROS 2 dependencies..."
-rosdep update
-rosdep install -i --from-path src --rosdistro $ROS_DISTRO -y
+# Verify required build tool
+if ! command -v colcon >/dev/null 2>&1; then
+    echo "ERROR: colcon is not installed."
+    exit 1
+fi
 
-# Build the workspace
-echo "Building packages..."
-colcon build
-source install/setup.bash
+# Check for ROS packages
+if [ -z "$(find src -name package.xml -print -quit)" ]; then
+    echo "No ROS packages found in src."
+    echo "Skipping workspace build."
+    exit 0
+fi
 
-echo "Workspace setup completed!"
+# Build packages using the non-root user
+echo "Building ROS 2 workspace..."
+colcon build --symlink-install
+
+echo "Workspace build completed."
+
+echo "To load the workspace in your current shell, run:"
+echo "source ${ROS_WS}/install/setup.bash"

@@ -1,0 +1,45 @@
+# ROSMASTER M3 Pro — Docker build context exclusions
+
+# Git metadata
+.git
+.gitignore
+
+# Temporary files
+temp/
+tmp/
+*.tmp
+*.log
+
+# ROS 2 build outputs
+build/
+install/
+log/
+
+# Python artifacts
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Virtual environments
+.venv/
+venv/
+
+# Development datasets and model checkpoints
+datasets/
+checkpoints/
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*~
+
+# Local environment and credentials
+.env
+.env.*
+*.pem
+*.key
