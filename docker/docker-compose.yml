@@ -15,6 +15,7 @@ services:
       LIBGL_ALWAYS_SOFTWARE: "1"
       DISPLAY: ${DISPLAY:?DISPLAY must be set}
       XAUTHORITY: /tmp/rosmaster-xauthority
+      XDG_RUNTIME_DIR: /tmp/runtime-1000
 
     volumes:
       - ../:/home/rosmaster/ros2_ws/src:rw
